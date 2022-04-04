@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_printf_put.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/20 10:48:56 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/03/31 17:11:39 by tdelauna         ###   ########.fr       */
+/*   Created: 2021/12/07 14:02:09 by tdelauna          #+#    #+#             */
+/*   Updated: 2022/03/31 17:04:38 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int	ft_putstr_fd_print(char *s, int fd)
 {
-	size_t	i;
-	char	*a;
-	char	*b;
+	if (s)
+	{
+		write(fd, s, ft_strlen(s));
+		return (ft_strlen(s));
+	}
+	return (0);
+}
+
+int	ft_putchar_fd_print(char c, int fd)
+{
+	return (write (fd, &c, 1));
+}
+/*
+char	*ft_strchr(char *s, int c)
+{
+	int	i;
 
 	i = 0;
-	a = (char *)dest;
-	b = (char *)src;
-	if (!a && !b)
+	if (!s)
 		return (NULL);
-	if (!n)
-		return (dest);
-	if (a > b)
+	while (s[i])
 	{
-		while (i < n)
-		{
-			a[n - 1] = b[n - 1];
-			n--;
-		}
+		if (s[i] == (char) c)
+			return (s + i);
+		i++;
 	}
-	else
-		ft_memcpy(a, b, n);
-	return (dest);
-}
+	return (0);
+}*/

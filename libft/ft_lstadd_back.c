@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 16:02:40 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/01/23 17:04:01 by aptive           ###   ########.fr       */
+/*   Updated: 2022/03/31 17:12:43 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
 	t_list	*last;
-	//printf("new = %p\n", new);
+
 	if (alst)
 	{
 		if (*alst)

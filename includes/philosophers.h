@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/03/13 16:10:49 by aptive           ###   ########.fr       */
+/*   Updated: 2022/04/03 08:04:18 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ typedef struct s_philosophers
 	int				is_spleeping;
 	int				is_thinking;
 	int				is_dead;
-
-
-
 	int				num_fork;
 	struct timeval	s_time_last_meal;
 	struct timeval	s_time_last;
 	struct timeval	s_time_actual;
+	unsigned long long	time_begin;
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		number_of_times_each_philosopher_must_eat;
 } t_philo;
 
 
@@ -55,11 +57,12 @@ typedef struct s_data
 	pthread_mutex_t	*fork_r;
 	pthread_mutex_t	*fork_l;
 
+
 } t_data;
 /*
 PHILO.C--------------------------------------------------------------------------
 */
-t_data	**ft_philo_init(t_data *(*data), int nb_philo, pthread_mutex_t *(*fork));
+t_data	**ft_philo_init(t_data *(*data), char **argv, pthread_mutex_t *(*fork));
 int		ft_philo_dead(t_data *(*data));
 /*
 FOURCHETTE.C---------------------------------------------------------------------

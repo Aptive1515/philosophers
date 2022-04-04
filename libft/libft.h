@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 12:56:04 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/01/25 17:23:43 by aptive           ###   ########.fr       */
+/*   Updated: 2022/03/31 17:07:35 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
+# include <stdarg.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 20
+# endif
 
 typedef struct s_list
 {
@@ -68,5 +74,31 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/*
+GNL------------------------------------------------------------------------------
+*/
+char	*get_next_line(int fd);
+char	*ft_readline(int fd, char *buf_rest);
+char	*ft_lign_print(char *buf_rest);
+char	*ft_rest(char *buf_rest);
+size_t	ft_strlen_gnl(char *str);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strchr_gnl(char *str, int c);
+
+/*
+Printf---------------------------------------------------------------------------
+*/
+int		ft_printf(const char *format, ...);
+int		ft_parse(char format, va_list args);
+int		ft_arg_str(char *str);
+int		ft_arg_unsigned(long int nbr);
+char	*ft_strchr_print(char *s, int c);
+int		ft_putchar_fd_print(char c, int fd);
+int		ft_putstr_fd_print(char *s, int fd);
+size_t	ft_strlen(const char *str);
+int		ft_putnbr_fd_print(long int n, int fd);
+int		ft_putnbr_base_print(unsigned int nbr, char *base);
+int		ft_am(unsigned long nbr, char *base);
 
 #endif

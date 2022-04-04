@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 13:30:08 by tdelauna          #+#    #+#             */
-/*   Updated: 2021/12/08 15:25:47 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/03/31 17:10:09 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (ft_strlen(s) <= start)
 		len = 0;
-	/*else if (len > ft_strlen(s))
-		len = ft_strlen(s);*/
 	else if (start + len > ft_strlen(s))
 		len = ft_strlen(s) - start;
 	dest = (char *)ft_calloc(len + 1, sizeof(char));
