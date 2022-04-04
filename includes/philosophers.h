@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/03 08:04:18 by aptive           ###   ########.fr       */
+/*   Updated: 2022/04/04 18:48:25 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 
-
 typedef struct s_philosophers
 {
 	int				nb;
@@ -31,25 +30,27 @@ typedef struct s_philosophers
 	int				is_thinking;
 	int				is_dead;
 	int				num_fork;
+	
 	struct timeval	s_time_last_meal;
 	struct timeval	s_time_last;
 	struct timeval	s_time_actual;
+
+	unsigned long long	last_meal;
 	unsigned long long	time_begin;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		number_of_times_each_philosopher_must_eat;
-} t_philo;
-
-
-
+	
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	
+	int				number_of_times_each_philosopher_must_eat;
+}	t_philo;
 
 typedef struct s_fork
 {
 	int				nb;
 	pthread_t		thread_nb;
 
-} t_fork;
+}	t_fork;
 
 typedef struct s_data
 {
@@ -57,19 +58,19 @@ typedef struct s_data
 	pthread_mutex_t	*fork_r;
 	pthread_mutex_t	*fork_l;
 
+}	t_data;
 
-} t_data;
 /*
 PHILO.C--------------------------------------------------------------------------
 */
-t_data	**ft_philo_init(t_data *(*data), char **argv, pthread_mutex_t *(*fork));
+t_data	**ft_philo_init(t_data *(*data), char **argv);
 int		ft_philo_dead(t_data *(*data));
 /*
 FOURCHETTE.C---------------------------------------------------------------------
 */
 t_fork	**ft_init_fork(t_fork *(*tab_fork), int nb_philo);
 /*
-THREAD.C--------------------------------------------------------------------------
+THREAD.C-------------------------------------------------------------------------
 */
 void	*ft_test(void	*arg);
 void	ft_eating(t_philo *philo);
@@ -77,8 +78,10 @@ void	ft_sleeping(t_philo *philo);
 void	ft_thinking(t_philo *philo);
 void	ft_died(t_philo *philo);
 /*
-THREAD.C--------------------------------------------------------------------------
+THREAD.C-------------------------------------------------------------------------
 */
 unsigned long long	gettime(void);
 
+
+void ft_etat_philo(t_philo *philo);
 #endif
