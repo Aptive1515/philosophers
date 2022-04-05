@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
+#    By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/03/12 16:58:32 by aptive           ###   ########.fr        #
+#    Updated: 2022/04/05 17:13:58 by tdelauna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -D_REENTRANT
+CFLAGS	= -Wall -Wextra -Werror -D_REENTRANT -fsanitize=thread -g3
 
 # ft library
 FT		= ./libft/

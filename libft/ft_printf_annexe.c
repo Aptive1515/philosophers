@@ -3,16 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_annexe.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:58:55 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/04/03 09:01:45 by aptive           ###   ########.fr       */
+/*   Updated: 2022/04/05 15:04:24 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int	ft_putnbr_fd_print(long int n, int fd)
+{
+	unsigned int	nbr;
+	int				value;
+
+	value = 0;
+	if (n < 0)
+	{
+		value += ft_putchar_fd_print('-', fd);
+		nbr = -n;
+	}
+	else
+		nbr = n;
+	if (nbr > 9)
+	{
+		value += ft_putnbr_fd_print(nbr / 10, fd);
+		nbr = nbr % 10;
+	}
+	value += ft_putchar_fd_print(nbr + '0', fd);
+	return (value);
+}
+
+int	ft_putnbr_long_fd(unsigned long long n, int fd)
 {
 	unsigned int	nbr;
 	int				value;

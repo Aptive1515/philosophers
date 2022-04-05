@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/04 19:15:41 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:09:41 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,63 +22,32 @@ void ft_etat_philo(t_philo *philo)
 void	*ft_test(void *arg)
 {
 	t_data	*data;
+	int		j;
 
-	//static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-
-
-
-//	pthread_mutex_init(data->fork_r, NULL);
+	j = 0;
 	data = arg;
 	data->philo->time_begin = gettime();
 	data->philo->last_meal = gettime();
 
-	//printf("time_begin = %lli\n", data->philo->time_begin);
-	//printf("last meal  = %lli\n", data->philo->last_meal);
 
 
-	//printf("time test %lli\n",  data->philo->time_begin - gettime());
-	
-	//ft_etat_philo(data->philo);
+//	printf("philo %i dead_philo %p int = %c\n", data->philo->nb,data->dead_philo, *data->dead_philo);
+	//pthread_mutex_lock(data->dead_philo);
 
-/*	
-	usleep(7000);
-	printf("time to die : %lli\n", (unsigned long long) data->philo->time_to_die * 10);
-	printf("%lli ms\n", (gettime() - data->philo->last_meal) * 100);
-
-
-	if ((gettime() - data->philo->last_meal) * 100 >= (unsigned long long)data->philo->time_to_die)
-		printf("dieeeeee");*/
-	//ft_etat_philo(data->philo);
-/*	if (data->philo->is_eating)
-	{
-		if (!pthread_mutex_lock(data->fork_r))
-					printf("philo %i has TAKEN the fork_r %p\n", data->philo->nb, data->fork_r);
-		if (!pthread_mutex_lock(data->fork_l))
-			printf("philo %i has TAKEN the fork_l %p\n", data->philo->nb, data->fork_l);
-
-
-		if (!pthread_mutex_unlock(data->fork_r))
-					printf("philo %i has DROP the fork_r %p\n", data->philo->nb, data->fork_r);
-		if (!pthread_mutex_unlock(data->fork_l))
-			printf("philo %i has DROP the fork_l %p\n", data->philo->nb, data->fork_l);
-		
-	}
-
-*/
-int j = 0;
 	while (!data->philo->is_dead)
 	{
-		
+
+
+	//	printf("**************test : %i\n", i);
 		if (data->philo->is_eating)
-		{
-			
+		{			
 			if (!pthread_mutex_lock(data->fork_r))
 				j++;
 				//printf("philo %i has taken the fork_r %p\n", data->philo->nb, data->fork_r);
 			if (!pthread_mutex_lock(data->fork_l))
 			{
 				//printf("philo %i has taken the fork_l %p\n", data->philo->nb, data->fork_l);
-				ft_eating(data->philo);
+				ft_eating(data->philo, data);
 			}
 			if (!pthread_mutex_unlock(data->fork_r))
 				j++;	//printf("philo %i has DROP the fork_r %p\n", data->philo->nb, data->fork_r);
@@ -86,49 +55,89 @@ int j = 0;
 				j++;//printf("philo %i has DROP the fork_l %p\n", data->philo->nb, data->fork_l);
 		}
 		if (data->philo->is_spleeping)
-			ft_sleeping(data->philo);
+			ft_sleeping(data->philo, data);
 		if (data->philo->is_thinking)
 		{
-			ft_thinking(data->philo);
+			ft_thinking(data->philo, data);
 		}
 		if ((gettime() - data->philo->last_meal) * 100 >= (unsigned long long)data->philo->time_to_die)
-			ft_died(data->philo);
+			ft_died(data->philo, data);
 	}
-	return(arg);
+	return (arg);
 }
 
-void	ft_eating(t_philo *philo)
+void	ft_eating(t_philo *philo, t_data *data)
 {
-	printf("%lli %d is eating\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	(void)data;
+	//printf("here\n");
+	//printf("deadphilo %i\n", *data->dead_philo);
+	while(pthread_mutex_lock(data->to_print))
+	{}
+	while(pthread_mutex_lock(data->mutex_dead))
+	{}
+	if(data->dead_philo)
+		ft_printf("%l %d is eating\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	pthread_mutex_unlock(data->to_print);
+	pthread_mutex_unlock(data->mutex_dead);
 	philo->is_eating = 0;
 	philo->is_spleeping = 1;
 	philo->last_meal = gettime();
 	usleep(philo->time_to_eat * 10);
-	
-	philo->is_eating = 0;
-	philo->is_spleeping = 1;
 }
 
-void	ft_sleeping(t_philo *philo)
+void	ft_sleeping(t_philo *philo, t_data *data)
 {
-
-	printf("%lli %d is sleeping\n", (gettime() - philo->time_begin) * 100, philo->nb);
-	usleep(philo->time_to_sleep * 10);
+	//printf("here2\n");
+	(void)data;
 	philo->is_spleeping = 0;
 	philo->is_thinking = 1;
-	ft_thinking(philo);
+	while(pthread_mutex_lock(data->to_print))
+	{}
+	while(pthread_mutex_lock(data->mutex_dead))
+	{}
+	if(data->dead_philo)
+		ft_printf("%l %d is sleeping\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	pthread_mutex_unlock(data->to_print);
+	pthread_mutex_unlock(data->mutex_dead);
+	usleep(philo->time_to_sleep * 10);
+	ft_thinking(philo, data);
 }
 
-void	ft_thinking(t_philo *philo)
+void	ft_thinking(t_philo *philo, t_data *data)
 {
+	(void)data;
+	//printf("here3\n");
 	gettimeofday(&philo->s_time_actual, NULL);
-	printf("%lli %d is thinking\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	while(pthread_mutex_lock(data->to_print))
+	{}
+	while(pthread_mutex_lock(data->mutex_dead))
+	{}
+	if(data->dead_philo)
+		ft_printf("%l %d is thinking\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	pthread_mutex_unlock(data->mutex_dead);
+	pthread_mutex_unlock(data->to_print);
 	philo->is_eating = 1;
 	philo->is_thinking = 0;
 }
 
-void	ft_died(t_philo *philo)
+void	ft_died(t_philo *philo, t_data *data)
 {
-	philo->is_dead = 1;
-	printf("%lli %d died\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	(void)data;
+	int i;
+	
+//	printf("\n***************philo %i dead_philo %p\n", data->philo->nb,data->dead_philo);
+//	printf("dead_philo %i\n", *data->dead_philo);
+
+	
+	i = 1;
+//	printf("here4\n");
+	while(pthread_mutex_lock(data->mutex_dead))
+	{}
+	//printf("here5\n");
+	
+	//printf("dead_philo %i/\n", *data->dead_philo);
+	if(data->dead_philo)
+		printf("%lli %d died\n", (gettime() - philo->time_begin) * 100, philo->nb);
+	data->dead_philo = NULL;
+	pthread_mutex_unlock(data->mutex_dead);
 }

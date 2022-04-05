@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 13:55:04 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/03/31 17:06:54 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:25:40 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	ft_parse(char format, va_list args)
 		value += ft_am(va_arg(args, unsigned long), "0123456789abcdef");
 	else if (format == '%')
 		value += ft_putchar_fd_print('%', 1);
+	else if (format == 'l')
+		value += ft_putnbr_long_fd(va_arg(args, unsigned long long), 1);
 	else
 		value += ft_putchar_fd_print(format, 1);
 	return (value);

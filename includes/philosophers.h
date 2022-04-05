@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/04 18:48:25 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:00:23 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,14 @@ typedef struct s_philosophers
 	int				number_of_times_each_philosopher_must_eat;
 }	t_philo;
 
-typedef struct s_fork
-{
-	int				nb;
-	pthread_t		thread_nb;
-
-}	t_fork;
-
 typedef struct s_data
 {
 	t_philo			*philo;
 	pthread_mutex_t	*fork_r;
 	pthread_mutex_t	*fork_l;
-
+	pthread_mutex_t	*to_print;
+	pthread_mutex_t	*mutex_dead;
+	char			*dead_philo;
 }	t_data;
 
 /*
@@ -65,18 +60,19 @@ PHILO.C-------------------------------------------------------------------------
 */
 t_data	**ft_philo_init(t_data *(*data), char **argv);
 int		ft_philo_dead(t_data *(*data));
+void	ft_init_mutex(t_data *(*data));
 /*
 FOURCHETTE.C---------------------------------------------------------------------
 */
-t_fork	**ft_init_fork(t_fork *(*tab_fork), int nb_philo);
+
 /*
 THREAD.C-------------------------------------------------------------------------
 */
 void	*ft_test(void	*arg);
-void	ft_eating(t_philo *philo);
-void	ft_sleeping(t_philo *philo);
-void	ft_thinking(t_philo *philo);
-void	ft_died(t_philo *philo);
+void	ft_eating(t_philo *philo, t_data *data);
+void	ft_sleeping(t_philo *philo, t_data *data);
+void	ft_thinking(t_philo *philo, t_data *data);
+void	ft_died(t_philo *philo, t_data *data);
 /*
 THREAD.C-------------------------------------------------------------------------
 */

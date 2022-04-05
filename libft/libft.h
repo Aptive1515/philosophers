@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 12:56:04 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/03/31 17:07:35 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:05:18 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ size_t	ft_strlen(const char *str);
 int		ft_putnbr_fd_print(long int n, int fd);
 int		ft_putnbr_base_print(unsigned int nbr, char *base);
 int		ft_am(unsigned long nbr, char *base);
+int		ft_putnbr_long_fd(unsigned long long n, int fd);
 
 #endif
