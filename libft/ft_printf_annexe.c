@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_annexe.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:58:55 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/04/05 15:04:24 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:03:03 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	ft_putnbr_long_fd(unsigned long long n, int fd)
 	int				value;
 
 	value = 0;
-	if (n < 0)
+	/*if (n < 0)
 	{
 		value += ft_putchar_fd_print('-', fd);
 		nbr = -n;
 	}
-	else
+	else*/
 		nbr = n;
 	if (nbr > 9)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/05 20:00:23 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/04/07 16:55:18 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ typedef struct s_philosophers
 	int				is_thinking;
 	int				is_dead;
 	int				num_fork;
-	
+
 	struct timeval	s_time_last_meal;
 	struct timeval	s_time_last;
 	struct timeval	s_time_actual;
 
 	unsigned long long	last_meal;
 	unsigned long long	time_begin;
-	
+
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	
-	int				number_of_times_each_philosopher_must_eat;
+
+	int				number_philosopher_must_eat;
 }	t_philo;
 
 typedef struct s_data
@@ -52,7 +52,7 @@ typedef struct s_data
 	pthread_mutex_t	*fork_l;
 	pthread_mutex_t	*to_print;
 	pthread_mutex_t	*mutex_dead;
-	char			*dead_philo;
+	int				dead_philo;
 }	t_data;
 
 /*
