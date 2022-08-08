@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:09:32 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/07 16:21:10 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/08 19:49:35 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int	ft_philo_dead(t_data *(*data))
 	i = 0;
 	while (data[i])
 	{
+		if ((gettime() - data[i]->philo->last_meal) >= (unsigned long long)data[i]->philo->time_to_die)
+			ft_died(data[i]->philo, data[i]);
+			// printf("DIEEEED\n");
 		if (!pthread_mutex_lock(data[i]->mutex_dead))
 		{
 			if (data[i]->dead_philo)

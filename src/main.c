@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:11:29 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/07 16:08:30 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/08 08:40:10 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,26 @@
 
 int	main(int argc, char **argv)
 {
+
+	// (void)argc;
+	// (void)argv;
+
+	// int i = 0;
+	// int time_begin = (int)gettime();
+	// printf("time begin = %i\n", time_begin);
+	// while ( i < 5)
+	// {
+	// 	usleep(100000);
+	// 	printf("time + 100s = %i\n", (int)gettime() - time_begin);
+	// 	i++;
+	// }
+	// (void)argc;
+	// while (argv[i])
+	// {
+	// 	printf("argc[%i] : %s", i, argv[i]);
+	// 	i++;
+	// }
+
 	t_data	*(*data);
 	int		i;
 

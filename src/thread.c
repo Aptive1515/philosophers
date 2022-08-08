@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/07 16:53:36 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/08 19:49:17 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ void ft_etat_philo(t_philo *philo)
 	printf("************************************\n");
 	printf("Philo %i, eating %i, sleeping %i, think %i, dead %i, last meal %lli\n\n",
 	 philo->nb, philo->is_eating, philo->is_spleeping, philo->is_thinking, philo->is_dead, philo->last_meal);
+}
+
+void	ft_put_philostat( int time ,int philo_nb, char* str)
+{
+	// ft_printf("%l %d is eating\n", (gettime() - philo->time_begin), philo->nb);
+	ft_putnbr_fd((int)time, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putnbr_fd(philo_nb, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putstr_fd(str, 1);
+	ft_putchar_fd('\n', 1);
 }
 
 void	*ft_test(void *arg)
@@ -45,8 +56,12 @@ void	*ft_test(void *arg)
 			ft_sleeping(data->philo, data);
 		if (data->philo->is_thinking)
 			ft_thinking(data->philo, data);
-		if ((gettime() - data->philo->last_meal) * 100 >= (unsigned long long)data->philo->time_to_die)
-			ft_died(data->philo, data);
+
+		// printf("time to last meal : %lli\n",gettime() - data->philo->last_meal);
+		// printf("time to died: %i\n", data->philo->time_to_die);
+
+		// if ((gettime() - data->philo->last_meal) >= (unsigned long long)data->philo->time_to_die)
+		// 	ft_died(data->philo, data);
 	}
 	return (arg);
 }
@@ -59,13 +74,14 @@ void	ft_eating(t_philo *philo, t_data *data)
 	while (pthread_mutex_lock(data->mutex_dead))
 	{}
 	if (!data->dead_philo)
-		ft_printf("%l %d is eating\n", (gettime() - philo->time_begin) * 100, philo->nb);
+		ft_put_philostat(gettime() - philo->time_begin , philo->nb, "is eating");
+		// ft_printf("%l %d is eating\n", (gettime() - philo->time_begin), philo->nb);
 	pthread_mutex_unlock(data->to_print);
 	pthread_mutex_unlock(data->mutex_dead);
 	philo->is_eating = 0;
 	philo->is_spleeping = 1;
 	philo->last_meal = gettime();
-	usleep(philo->time_to_eat * 10);
+	usleep(philo->time_to_eat * 1000);
 }
 
 void	ft_sleeping(t_philo *philo, t_data *data)
@@ -78,10 +94,12 @@ void	ft_sleeping(t_philo *philo, t_data *data)
 	while (pthread_mutex_lock(data->mutex_dead))
 	{}
 	if (!data->dead_philo)
-		ft_printf("%l %d is sleeping\n", (gettime() - philo->time_begin) * 100, philo->nb);
+		ft_put_philostat(gettime() - philo->time_begin , philo->nb, "is sleeping");
+
+		// ft_printf("%l %d is sleeping\n", (gettime() - philo->time_begin), philo->nb);
 	pthread_mutex_unlock(data->to_print);
 	pthread_mutex_unlock(data->mutex_dead);
-	usleep(philo->time_to_sleep * 10);
+	usleep(philo->time_to_sleep * 1000);
 	ft_thinking(philo, data);
 }
 
@@ -94,7 +112,9 @@ void	ft_thinking(t_philo *philo, t_data *data)
 	while (pthread_mutex_lock(data->mutex_dead))
 	{}
 	if (!data->dead_philo)
-		ft_printf("%l %d is thinking\n", (gettime() - philo->time_begin) * 100, philo->nb);
+		ft_put_philostat(gettime() - philo->time_begin , philo->nb, "is thinking");
+
+		// ft_printf("%l %d is thinking\n", (gettime() - philo->time_begin), philo->nb);
 	pthread_mutex_unlock(data->mutex_dead);
 	pthread_mutex_unlock(data->to_print);
 	philo->is_eating = 1;
@@ -107,7 +127,9 @@ void	ft_died(t_philo *philo, t_data *data)
 	while(pthread_mutex_lock(data->mutex_dead))
 	{}
 	if(!data->dead_philo)
-		printf("%lli %d died\n", (gettime() - philo->time_begin) * 100, philo->nb);
+		ft_put_philostat(gettime() - philo->time_begin , philo->nb, "died");
+
+		// printf("%lli %d died\n", (gettime() - philo->time_begin), philo->nb);
 	data->dead_philo = 1;
 	pthread_mutex_unlock(data->mutex_dead);
 }

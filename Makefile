@@ -6,7 +6,7 @@
 #    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/04/07 16:04:26 by aptive           ###   ########.fr        #
+#    Updated: 2022/08/08 19:47:49 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -D_REENTRANT
+# -fsanitize=address
 #-fsanitize=thread -g3
 
 # ft library
