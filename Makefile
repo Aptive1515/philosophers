@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
+#    By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/04/07 16:04:26 by aptive           ###   ########.fr        #
+#    Updated: 2022/08/09 14:09:03 by tdelauna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,10 @@ OBJDIR	= ./obj
 
 # src / obj files
 SRC		=	main.c \
-			philo.c \
+			philo_init.c \
 			thread.c \
 			time.c \
+			philo_utils.c\
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -29,6 +30,7 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -D_REENTRANT
 #-fsanitize=thread -g3
+#-fsanitize=address
 
 # ft library
 FT		= ./libft/

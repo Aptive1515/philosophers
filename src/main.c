@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:11:29 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/07 16:08:30 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/09 14:43:29 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	main(int argc, char **argv)
 	data = ft_philo_init(data, argv);
 	ft_init_mutex(data);
 	i = -1;
-	while (data[++i])
-	{
+	while (data && data[++i])
 		pthread_create(&data[i]->philo->thread_philo_nb,
 			NULL, ft_test, data[i]);
-	}
-	while (ft_philo_dead(data))
+	while (data && ft_philo_dead(data))
 		i = -1;
-	while (data[++i])
+	i = -1;
+	while (data && data[++i])
 		pthread_join (data[i]->philo->thread_philo_nb, NULL);
+	ft_free_all(data);
 	return (1);
 }

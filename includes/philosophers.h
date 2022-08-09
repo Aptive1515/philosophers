@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/04/07 16:55:18 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/09 14:52:39 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ typedef struct s_data
 }	t_data;
 
 /*
-PHILO.C--------------------------------------------------------------------------
+PHILO_INIT.C---------------------------------------------------------------------
 */
 t_data	**ft_philo_init(t_data *(*data), char **argv);
-int		ft_philo_dead(t_data *(*data));
+void	ft_param_to_philo(t_philo *philo, int i);
+void	ft_argv_to_philo(t_philo *philo, char **argv);
+void	ft_fork_to_philo(t_data *(*data), int nb_philo);
 void	ft_init_mutex(t_data *(*data));
 /*
 FOURCHETTE.C---------------------------------------------------------------------
@@ -72,12 +74,17 @@ void	*ft_test(void	*arg);
 void	ft_eating(t_philo *philo, t_data *data);
 void	ft_sleeping(t_philo *philo, t_data *data);
 void	ft_thinking(t_philo *philo, t_data *data);
-void	ft_died(t_philo *philo, t_data *data);
 /*
-THREAD.C-------------------------------------------------------------------------
+TIME.C---------------------------------------------------------------------------
 */
 unsigned long long	gettime(void);
-
+/*
+PHILO_UTILS.C--------------------------------------------------------------------
+*/
+void	ft_free_all(t_data *(*data));
+int		ft_philo_dead(t_data *(*data));
+void	ft_died(t_philo *philo, t_data *data);
+void	ft_msg( int time ,int philo_nb, char* str);
 
 void ft_etat_philo(t_philo *philo);
 #endif
