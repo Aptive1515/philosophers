@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:11:29 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/10 19:16:23 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/10 20:19:09 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_data	*(*data);
 	int		i;
 
-	if (argc < 5 || argc > 6)
+	if (argc < 5 || argc > 6 || ft_atoi(argv[5]) <= 0)
 		return (1);
 	i = 0;
 	data = NULL;
