@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 13:58:55 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/04/06 17:03:03 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/10 19:15:19 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,7 @@ int	ft_putnbr_long_fd(unsigned long long n, int fd)
 	int				value;
 
 	value = 0;
-	/*if (n < 0)
-	{
-		value += ft_putchar_fd_print('-', fd);
-		nbr = -n;
-	}
-	else*/
-		nbr = n;
+	nbr = n;
 	if (nbr > 9)
 	{
 		value += ft_putnbr_fd_print(nbr / 10, fd);

@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/10 14:21:35 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/10 19:54:08 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,21 @@ typedef struct s_philosophers
 	int				is_spleeping;
 	int				is_thinking;
 	int				is_dead;
+	int				have_meal;
 	int				num_fork;
 
 	struct timeval	s_time_last_meal;
 	struct timeval	s_time_last;
 	struct timeval	s_time_actual;
 
-	unsigned long long	last_meal;
-	unsigned long long	time_begin;
+	int				last_meal;
+	int				time_begin;
 
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 
-	int				number_philosopher_must_eat;
+	int				nb_philo_must_eat;
 }	t_philo;
 
 typedef struct s_data
@@ -58,34 +59,35 @@ typedef struct s_data
 /*
 PHILO_INIT.C---------------------------------------------------------------------
 */
-t_data	**ft_philo_init(t_data *(*data), char **argv);
-void	ft_param_to_philo(t_philo *philo, int i);
-void	ft_argv_to_philo(t_philo *philo, char **argv);
-void	ft_fork_to_philo(t_data *(*data), int nb_philo);
-void	ft_init_mutex(t_data *(*data));
+t_data	**philo_init(t_data *(*data), char **argv);
+void	param_to_philo(t_philo *philo, int i);
+void	argv_to_philo(t_philo *philo, char **argv);
+void	fork_to_philo(t_data *(*data), int nb_philo);
+void	init_mutex(t_data *(*data));
 /*
-FOURCHETTE.C---------------------------------------------------------------------
+ACTION.C-------------------------------------------------------------------------
 */
+void	take_fork(t_philo *philo, t_data *data);
+void	eating(t_philo *philo, t_data *data);
+void	sleeping(t_philo *philo, t_data *data);
+void	thinking(t_philo *philo, t_data *data);
 
 /*
 THREAD.C-------------------------------------------------------------------------
 */
-void	*ft_test(void	*arg);
-void	ft_take_fork(t_philo *philo, t_data *data);
-void	ft_eating(t_philo *philo, t_data *data);
-void	ft_sleeping(t_philo *philo, t_data *data);
-void	ft_thinking(t_philo *philo, t_data *data);
+void	*routine(void	*arg);
+int		witch_k(t_data *data);
+void	eating_odd_even(t_data *data);
 /*
 TIME.C---------------------------------------------------------------------------
 */
-unsigned long long	gettime(void);
+int		gettime(void);
 /*
 PHILO_UTILS.C--------------------------------------------------------------------
 */
-void	ft_free_all(t_data *(*data));
-int		ft_philo_dead(t_data *(*data));
-void	ft_died(t_philo *philo, t_data *data);
-void	ft_msg( int time ,int philo_nb, char* str);
+void	free_all(t_data *(*data));
+void	philo_dead(t_data *(*data), int nb_philo, int time_to_dead);
+void	died(t_philo *philo, t_data *data);
+void	msg(int time, int philo_nb, char *str);
 
-void ft_etat_philo(t_philo *philo);
 #endif

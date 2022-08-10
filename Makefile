@@ -6,7 +6,7 @@
 #    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/08/10 15:39:48 by aptive           ###   ########.fr        #
+#    Updated: 2022/08/10 20:08:03 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,15 @@ SRC		=	main.c \
 			thread.c \
 			time.c \
 			philo_utils.c\
+			action.c\
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -D_REENTRANT -fsanitize=address
-# -fsanitize=thread -g3
+CFLAGS	= -Wall -Wextra -Werror -D_REENTRANT
+#-fsanitize=thread -g3
+#-fsanitize=address
 
 # ft library
 FT		= ./libft/

@@ -3,44 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:09:32 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/09 14:43:02 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/10 19:03:34 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-t_data	**ft_philo_init(t_data *(*data), char **argv)
+t_data	**philo_init(t_data *(*data), char **argv)
 {
 	int		i;
 	int		nb_philo;
 
+	i = 0;
 	nb_philo = ft_atoi(argv[1]);
-	data = malloc(sizeof(data) * (nb_philo + 1));
+	data = ft_calloc(sizeof(t_data), nb_philo + 1);
 	if (!data)
 		return (NULL);
 	data[nb_philo] = NULL;
-	i = 0;
 	while (i < nb_philo)
 	{
-		data[i] = malloc(sizeof(t_data));
-		data[i]->philo = malloc(sizeof(t_philo));
+		data[i] = ft_calloc(sizeof(t_data), 1);
+		data[i]->philo = ft_calloc(sizeof(t_philo), 1);
 		data[i]->fork_r = (pthread_mutex_t *)malloc(sizeof(*(data[i]->fork_r)));
 		pthread_mutex_init(data[i]->fork_r, NULL);
-		ft_param_to_philo(data[i]->philo, i);
-		ft_argv_to_philo(data[i]->philo, argv);
+		param_to_philo(data[i]->philo, i);
+		argv_to_philo(data[i]->philo, argv);
 		i++;
 	}
-	ft_fork_to_philo(data, nb_philo);
+	fork_to_philo(data, nb_philo);
 	return (data);
 }
 
-void	ft_param_to_philo(t_philo *philo, int i)
+void	param_to_philo(t_philo *philo, int i)
 {
 	philo->nb = 1 + i;
 	philo->num_fork = 1;
+	philo->have_meal = 0;
 	if ((i + 1) % 2 == 0)
 	{
 		philo->is_eating = 1;
@@ -54,18 +55,18 @@ void	ft_param_to_philo(t_philo *philo, int i)
 	philo->is_dead = 0;
 }
 
-void	ft_argv_to_philo(t_philo *philo, char **argv)
+void	argv_to_philo(t_philo *philo, char **argv)
 {
 	philo->time_to_die = ft_atoi(argv[2]);
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
-		philo->number_philosopher_must_eat = ft_atoi(argv[5]);
+		philo->nb_philo_must_eat = ft_atoi(argv[5]);
 	else
-		philo->number_philosopher_must_eat = -1;
+		philo->nb_philo_must_eat = -1;
 }
 
-void	ft_fork_to_philo(t_data *(*data), int nb_philo)
+void	fork_to_philo(t_data *(*data), int nb_philo)
 {
 	int	i;
 
@@ -80,7 +81,7 @@ void	ft_fork_to_philo(t_data *(*data), int nb_philo)
 	}
 }
 
-void	ft_init_mutex(t_data *(*data))
+void	init_mutex(t_data *(*data))
 {
 	pthread_mutex_t	*to_print;
 	pthread_mutex_t	*mutex_dead;
