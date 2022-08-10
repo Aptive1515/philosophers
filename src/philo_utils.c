@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 13:10:26 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/08/09 14:53:18 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/10 12:05:29 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	ft_philo_dead(t_data *(*data))
 	int	j;
 
 	i = 0;
+	usleep(200000);
 	while (data[i])
 	{
 		if ((gettime() - data[i]->philo->last_meal) >= (unsigned long long)data[i]->philo->time_to_die)

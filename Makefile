@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+         #
+#    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/08/09 14:09:03 by tdelauna         ###   ########.fr        #
+#    Updated: 2022/08/10 11:15:58 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= philosophers
+NAME	= philo
 
 # directories
 SRCDIR	= ./src

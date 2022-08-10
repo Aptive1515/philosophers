@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/09 14:52:05 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:17:59 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*ft_test(void *arg)
 	k = 0;
 	data = arg;
 	data->philo->time_begin = gettime();
-	data->philo->last_meal = gettime();
+	data->philo->last_meal = data->philo->time_begin;
 	while (!data->dead_philo)
 	{
 		if (data->philo->is_eating)
@@ -45,56 +45,45 @@ void	*ft_test(void *arg)
 			ft_sleeping(data->philo, data);
 		if (data->philo->is_thinking)
 			ft_thinking(data->philo, data);
-
-		// printf("time to last meal : %lli\n",gettime() - data->philo->last_meal);
-		// printf("time to died: %i\n", data->philo->time_to_die);
-
-		// if ((gettime() - data->philo->last_meal) >= (unsigned long long)data->philo->time_to_die)
-		// 	ft_died(data->philo, data);
 	}
 	return (arg);
 }
 
 void	ft_eating(t_philo *philo, t_data *data)
 {
-	(void)data;
-	pthread_mutex_lock(data->to_print);
 	pthread_mutex_lock(data->mutex_dead);
 	if (!data->dead_philo)
+	{
 		ft_msg(gettime() - philo->time_begin , philo->nb, "is eating");
-	pthread_mutex_unlock(data->to_print);
-	pthread_mutex_unlock(data->mutex_dead);
-	philo->is_eating = 0;
-	philo->is_spleeping = 1;
-	philo->last_meal = gettime();
-	usleep(philo->time_to_eat * 1000);
+	}
+		pthread_mutex_unlock(data->mutex_dead);
+		philo->last_meal = gettime();
+		usleep(philo->time_to_eat * 1000);
+		philo->is_eating = 0;
+		philo->is_spleeping = 1;
 }
 
 void	ft_sleeping(t_philo *philo, t_data *data)
 {
-	(void)data;
-	philo->is_spleeping = 0;
-	philo->is_thinking = 1;
-	pthread_mutex_lock(data->to_print);
 	pthread_mutex_lock(data->mutex_dead);
 	if (!data->dead_philo)
+	{
 		ft_msg(gettime() - philo->time_begin , philo->nb, "is sleeping");
-	pthread_mutex_unlock(data->to_print);
+	}
 	pthread_mutex_unlock(data->mutex_dead);
 	usleep(philo->time_to_sleep * 1000);
-	ft_thinking(philo, data);
+	philo->is_spleeping = 0;
+	philo->is_thinking = 1;
 }
 
 void	ft_thinking(t_philo *philo, t_data *data)
 {
-	(void)data;
-	gettimeofday(&philo->s_time_actual, NULL);
-	pthread_mutex_lock(data->to_print);
 	pthread_mutex_lock(data->mutex_dead);
 	if (!data->dead_philo)
+	{
 		ft_msg(gettime() - philo->time_begin , philo->nb, "is thinking");
+	}
 	pthread_mutex_unlock(data->mutex_dead);
-	pthread_mutex_unlock(data->to_print);
 	philo->is_eating = 1;
 	philo->is_thinking = 0;
 }
