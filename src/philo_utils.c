@@ -6,7 +6,7 @@
 /*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 13:10:26 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/08/10 12:05:29 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/10 14:54:50 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,44 +29,58 @@ void	ft_free_all(t_data *(*data))
 	free(data);
 }
 
+void	ft_exit(t_data *(*data))
+{
+	int	i;
+
+	i = -1;
+	while (data && data[++i])
+		pthread_join (data[i]->philo->thread_philo_nb, NULL);
+	ft_free_all(data);
+}
+
 int	ft_philo_dead(t_data *(*data))
 {
 	int	i;
-	int	j;
+	// int	j;
 
 	i = 0;
 	usleep(200000);
 	while (data[i])
 	{
+		pthread_mutex_lock(data[i]->mutex_dead);
 		if ((gettime() - data[i]->philo->last_meal) >= (unsigned long long)data[i]->philo->time_to_die)
-			ft_died(data[i]->philo, data[i]);
-		if (!pthread_mutex_lock(data[i]->mutex_dead))
 		{
-			if (data[i]->dead_philo)
-			{
-				j = -1;
-				while (data[++j])
-				{
-					data[j]->dead_philo = 1;
-				}
-				pthread_mutex_unlock(data[i]->mutex_dead);
-				return (0);
-			}
-			pthread_mutex_unlock(data[i]->mutex_dead);
+			ft_msg(gettime() - data[i]->philo->time_begin , data[i]->philo->nb, "died");
+			data[i]->dead_philo = 1;
+			exit(1);
 		}
-		i++;
+		pthread_mutex_unlock(data[i]->mutex_dead);
+		// if (!pthread_mutex_lock(data[i]->mutex_dead))
+		// {
+		// 	if (data[i]->dead_philo)
+		// 	{
+		// 		j = -1;
+		// 		while (data[++j])
+		// 		{
+		// 			data[j]->dead_philo = 1;
+		// 		}
+		// 		pthread_mutex_unlock(data[i]->mutex_dead);
+		// 		return (0);
+		// 	}
+		// 	pthread_mutex_unlock(data[i]->mutex_dead);
+		// }
+		// i++;
 	}
 	return (1);
 }
 
 void	ft_died(t_philo *philo, t_data *data)
 {
-	(void)data;
-	pthread_mutex_lock(data->mutex_dead);
-	if (!data->dead_philo)
-		ft_msg(gettime() - philo->time_begin , philo->nb, "died");
+	// pthread_mutex_lock(data->mutex_dead);
+	ft_msg(gettime() - philo->time_begin , philo->nb, "died");
 	data->dead_philo = 1;
-	pthread_mutex_unlock(data->mutex_dead);
+	// pthread_mutex_unlock(data->mutex_dead);
 }
 
 void	ft_msg( int time ,int philo_nb, char* str)

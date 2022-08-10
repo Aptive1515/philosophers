@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/09 14:52:39 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:21:35 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ FOURCHETTE.C--------------------------------------------------------------------
 THREAD.C-------------------------------------------------------------------------
 */
 void	*ft_test(void	*arg);
+void	ft_take_fork(t_philo *philo, t_data *data);
 void	ft_eating(t_philo *philo, t_data *data);
 void	ft_sleeping(t_philo *philo, t_data *data);
 void	ft_thinking(t_philo *philo, t_data *data);
