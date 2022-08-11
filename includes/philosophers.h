@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/10 19:54:08 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:21:18 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,9 @@ typedef struct s_philosophers
 	int				is_thinking;
 	int				is_dead;
 	int				have_meal;
-	int				num_fork;
-
-	struct timeval	s_time_last_meal;
-	struct timeval	s_time_last;
-	struct timeval	s_time_actual;
-
+	int				nb_philo;
 	int				last_meal;
 	int				time_begin;
-
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;

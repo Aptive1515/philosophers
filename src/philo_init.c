@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:09:32 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/10 19:03:34 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:21:26 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,23 @@ t_data	**philo_init(t_data *(*data), char **argv)
 void	param_to_philo(t_philo *philo, int i)
 {
 	philo->nb = 1 + i;
-	philo->num_fork = 1;
 	philo->have_meal = 0;
 	if ((i + 1) % 2 == 0)
 	{
 		philo->is_eating = 1;
-		philo->is_thinking = 0;
+		philo->is_spleeping = 0;
 	}
 	else
 	{
 		philo->is_eating = 0;
-		philo->is_thinking = 1;
+		philo->is_spleeping = 1;
 	}
 	philo->is_dead = 0;
 }
 
 void	argv_to_philo(t_philo *philo, char **argv)
 {
+	philo->nb_philo = ft_atoi(argv[1]);
 	philo->time_to_die = ft_atoi(argv[2]);
 	philo->time_to_eat = ft_atoi(argv[3]);
 	philo->time_to_sleep = ft_atoi(argv[4]);

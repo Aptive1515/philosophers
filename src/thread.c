@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/10 20:00:24 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:37:40 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	witch_k(t_data *data)
 
 void	eating_odd_even(t_data *data)
 {
+	if (data->philo->nb_philo == 1)
+		return ;
 	if (data->philo->nb % 2)
 	{
 		pthread_mutex_lock(data->fork_r);
@@ -65,6 +67,14 @@ void	eating_odd_even(t_data *data)
 	}
 	take_fork(data->philo, data);
 	eating(data->philo, data);
-	pthread_mutex_unlock(data->fork_l);
-	pthread_mutex_unlock(data->fork_r);
+	if (data->philo->nb % 2)
+	{
+		pthread_mutex_unlock(data->fork_r);
+		pthread_mutex_unlock(data->fork_l);
+	}
+	else
+	{
+		pthread_mutex_unlock(data->fork_l);
+		pthread_mutex_unlock(data->fork_r);
+	}
 }
