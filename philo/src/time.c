@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:58:06 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/11 15:38:25 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/22 16:27:03 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	gettime(void)
 
 void	msg(int time, int philo_nb, char *str)
 {
-	ft_putnbr_fd((int)time, 1);
+	ft_putnbr_fd(time, 1);
 	ft_putchar_fd(' ', 1);
 	ft_putnbr_fd(philo_nb, 1);
 	ft_putchar_fd(' ', 1);

@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/11 15:37:40 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:27:21 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,21 @@ void	eating_odd_even(t_data *data)
 	if (data->philo->nb % 2)
 	{
 		pthread_mutex_lock(data->fork_r);
+		take_fork(data->philo, data);
 		pthread_mutex_lock(data->fork_l);
+		take_fork(data->philo, data);
+
 	}
 	else
 	{
 		pthread_mutex_lock(data->fork_l);
+		take_fork(data->philo, data);
 		pthread_mutex_lock(data->fork_r);
+		take_fork(data->philo, data);
+
+
 	}
-	take_fork(data->philo, data);
+	// take_fork(data->philo, data);
 	eating(data->philo, data);
 	if (data->philo->nb % 2)
 	{
