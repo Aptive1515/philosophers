@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/11 15:21:18 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:00:04 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,5 @@ PHILO_UTILS.C-------------------------------------------------------------------
 void	free_all(t_data *(*data));
 void	philo_dead(t_data *(*data), int nb_philo, int time_to_dead);
 void	died(t_philo *philo, t_data *data);
-void	msg(int time, int philo_nb, char *str);
 
 #endif

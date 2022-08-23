@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:23:00 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/22 18:25:02 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:43:59 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,19 @@ void	take_fork(t_philo *philo, t_data *data)
 {
 	pthread_mutex_lock(data->mutex_dead);
 	if (!data->dead_philo)
-	{
-		printf("%i %i has taken a fork\n", gettime() - philo->time_begin, philo->nb);
-		// msg(gettime() - philo->time_begin, philo->nb, "has taken a fork");
-		// msg(gettime() - philo->time_begin, philo->nb, "has taken a fork");
-	}
+		printf("%i %i has taken a fork\n",
+			gettime() - philo->time_begin, philo->nb);
 	pthread_mutex_unlock(data->mutex_dead);
 }
 
 void	eating(t_philo *philo, t_data *data)
 {
-	int time;
+	int	time;
 
 	pthread_mutex_lock(data->mutex_dead);
 	time = gettime();
 	if (!data->dead_philo)
 		printf("%i %i is eating\n", time - philo->time_begin, philo->nb);
-		// msg(time - philo->time_begin, philo->nb, "is eating");
 	philo->last_meal = time;
 	pthread_mutex_unlock(data->mutex_dead);
 	philo->is_eating = 0;
@@ -45,8 +41,7 @@ void	sleeping(t_philo *philo, t_data *data)
 {
 	pthread_mutex_lock(data->mutex_dead);
 	if (!data->dead_philo)
-		printf("%i %i is spleeping\n", gettime() - philo->time_begin, philo->nb);
-		// msg(gettime() - philo->time_begin, philo->nb, "is sleeping");
+		printf("%i %i is sleeping\n", gettime() - philo->time_begin, philo->nb);
 	pthread_mutex_unlock(data->mutex_dead);
 	philo->is_spleeping = 0;
 	philo->is_thinking = 1;
@@ -58,9 +53,9 @@ void	thinking(t_philo *philo, t_data *data)
 	pthread_mutex_lock(data->mutex_dead);
 	if (!data->dead_philo)
 		printf("%i %i is thinking\n", gettime() - philo->time_begin, philo->nb);
-		// msg(gettime() - philo->time_begin, philo->nb, "is thinking");
 	pthread_mutex_unlock(data->mutex_dead);
 	philo->is_eating = 1;
 	philo->is_thinking = 0;
-	usleep(1 * 1000);
+	if (philo->nb % 2 != 0)
+		usleep(1 * 100);
 }

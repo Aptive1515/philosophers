@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:11:29 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/22 17:01:17 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/23 17:57:45 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char **argv)
 {
 	t_data	*(*data);
 	int		i;
+	int		time;
 
 	if (check_arg(argc, argv))
 		return (1);
@@ -60,7 +61,15 @@ int	main(int argc, char **argv)
 	while (data[++i])
 		pthread_create(&data[i]->philo->thread_philo_nb,
 			NULL, routine, data[i]);
+	time = gettime();
+	i = -1;
+	while (data[++i])
+	{
+		data[i]->philo->time_begin = time;
+		data[i]->philo->last_meal = time;
+	}
 	pthread_mutex_unlock(data[0]->to_print);
 	philo_dead(data, ft_atoi(argv[1]), ft_atoi(argv[2]));
+	while (1);
 	return (0);
 }

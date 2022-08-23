@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/22 18:27:21 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:14:40 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ void	*routine(void *arg)
 	k = 1;
 	pthread_mutex_lock(data->to_print);
 	pthread_mutex_unlock(data->to_print);
-	pthread_mutex_lock(data->mutex_dead);
-	data->philo->time_begin = gettime();
-	data->philo->last_meal = data->philo->time_begin;
-	pthread_mutex_unlock(data->mutex_dead);
 	while (k)
 	{
 		if (data->philo->is_eating)
@@ -61,7 +57,6 @@ void	eating_odd_even(t_data *data)
 		take_fork(data->philo, data);
 		pthread_mutex_lock(data->fork_l);
 		take_fork(data->philo, data);
-
 	}
 	else
 	{
@@ -69,8 +64,6 @@ void	eating_odd_even(t_data *data)
 		take_fork(data->philo, data);
 		pthread_mutex_lock(data->fork_r);
 		take_fork(data->philo, data);
-
-
 	}
 	// take_fork(data->philo, data);
 	eating(data->philo, data);
@@ -84,4 +77,5 @@ void	eating_odd_even(t_data *data)
 		pthread_mutex_unlock(data->fork_l);
 		pthread_mutex_unlock(data->fork_r);
 	}
+
 }

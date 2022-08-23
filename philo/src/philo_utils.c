@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 13:10:26 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/08/11 15:38:22 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/24 00:15:06 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,28 @@ void	philo_dead(t_data *(*dt), int nb_philo, int time_to_dead)
 {
 	int	i;
 	int	j;
+	int	time;
 
-	i = 0;
+	i = -1;
 	j = -1;
 	usleep((time_to_dead) * 1000);
-	while (dt[i])
+	while (dt[++i])
 	{
 		pthread_mutex_lock(dt[i]->mutex_dead);
-		if ((gettime() - dt[i]->philo->last_meal) > dt[i]->philo->time_to_die)
+		time = gettime();
+		if ((time - dt[i]->philo->last_meal) > dt[i]->philo->time_to_die)
 		{
 			if (dt[i]->philo->nb_philo_must_eat > 0)
 				if (philo_all_eat(dt, nb_philo))
 					ft_exit(dt, i);
-			msg(gettime() - dt[i]->philo->time_begin, dt[i]->philo->nb, "died");
+			msg(time - dt[i]->philo->time_begin, dt[i]->philo->nb, "died");
 			while (dt[++j])
 				dt[j]->dead_philo = 1;
 			ft_exit(dt, i);
 		}
-		i++;
-		if (nb_philo == i)
-			i = 0;
 		pthread_mutex_unlock(dt[i]->mutex_dead);
+		if (nb_philo == i)
+			i = -1;
 	}
 }
 

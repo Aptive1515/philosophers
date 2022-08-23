@@ -3,35 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:09:32 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/11 15:21:26 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/23 19:01:07 by aptive           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+void	ft_exit_free(t_data *(*data))
+{
+	int	i;
+
+	i = -1;
+	while (data && data[++i])
+	{
+		if (data[i]->mutex_dead)
+			free(data[i]->mutex_dead);
+		if (data[i]->to_print)
+			free(data[i]->to_print);
+		if (data[i]->fork_r)
+			free(data[i]->fork_r);
+		if (data[i]->philo)
+			free(data[i]->philo);
+		free(data[i]);
+
+	}
+	if (data)
+		free(data);
+}
 
 t_data	**philo_init(t_data *(*data), char **argv)
 {
 	int		i;
 	int		nb_philo;
 
-	i = 0;
+	i = -1;
 	nb_philo = ft_atoi(argv[1]);
 	data = ft_calloc(sizeof(t_data), nb_philo + 1);
 	if (!data)
-		return (NULL);
+		ft_exit_free(data);
 	data[nb_philo] = NULL;
-	while (i < nb_philo)
+	while (++i < nb_philo)
 	{
 		data[i] = ft_calloc(sizeof(t_data), 1);
 		data[i]->philo = ft_calloc(sizeof(t_philo), 1);
 		data[i]->fork_r = (pthread_mutex_t *)malloc(sizeof(*(data[i]->fork_r)));
+		if (!data[i] || data[i]->philo || !data[i]->fork_r)
+			ft_exit_free(data);
 		pthread_mutex_init(data[i]->fork_r, NULL);
 		param_to_philo(data[i]->philo, i);
 		argv_to_philo(data[i]->philo, argv);
-		i++;
 	}
 	fork_to_philo(data, nb_philo);
 	return (data);
@@ -89,7 +112,11 @@ void	init_mutex(t_data *(*data))
 
 	i = 0;
 	to_print = (pthread_mutex_t *)malloc(sizeof(*(to_print)));
+	if (data[i]->to_print)
+		ft_exit_free(data);
 	mutex_dead = (pthread_mutex_t *)malloc(sizeof(*(mutex_dead)));
+	if (data[i]->mutex_dead)
+		ft_exit_free(data);
 	pthread_mutex_init(to_print, NULL);
 	pthread_mutex_init(mutex_dead, NULL);
 	while (data && data[i])

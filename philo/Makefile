@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+         #
+#    By: aptive <aptive@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/08/22 17:03:04 by tdelauna         ###   ########.fr        #
+#    Updated: 2022/08/23 18:40:58 by aptive           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 # compiler
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
-#-D_REENTRANT
 #-fsanitize=thread -g3
+#-D_REENTRANT
 #-fsanitize=address
 
 # ft library
