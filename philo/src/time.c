@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:58:06 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/23 18:59:53 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/27 17:55:51 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,30 @@ int	gettime(void)
 
 	gettimeofday(&time, NULL);
 	return ((int)((time.tv_sec * 1000) + (time.tv_usec / 1000)));
+}
+
+void	msg(int time, int philo_nb, char *str)
+{
+	char	*tmp;
+	char	*tmp_2;
+
+	tmp = ft_itoa(time);
+	tmp_2 = ft_strjoin_gnl(tmp, " ");
+	// free(tmp);
+
+	tmp = ft_itoa(philo_nb);
+	tmp_2 = ft_strjoin_gnl(tmp_2, tmp);
+	free(tmp);
+	tmp_2 = ft_strjoin_gnl(tmp_2, " ");
+	tmp_2 = ft_strjoin_gnl(tmp_2, str);
+	tmp_2 = ft_strjoin_gnl(tmp_2, "\n");
+
+	// ft_putstr_fd(ft_itoa(time), 1);
+	// // ft_putnbr_fd((int)time, 1);
+	// ft_putchar_fd(' ', 1);
+	// ft_putnbr_fd(philo_nb, 1);
+	// ft_putchar_fd(' ', 1);
+	// ft_putstr_fd(str, 1);
+	// ft_putchar_fd('\n', 1);
+	ft_putstr_fd(tmp_2, 1);
 }
