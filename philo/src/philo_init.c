@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:09:32 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/23 19:01:07 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/27 16:27:36 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_data	**philo_init(t_data *(*data), char **argv)
 		data[i] = ft_calloc(sizeof(t_data), 1);
 		data[i]->philo = ft_calloc(sizeof(t_philo), 1);
 		data[i]->fork_r = (pthread_mutex_t *)malloc(sizeof(*(data[i]->fork_r)));
-		if (!data[i] || data[i]->philo || !data[i]->fork_r)
+		if (!data[i] || !data[i]->philo || !data[i]->fork_r)
 			ft_exit_free(data);
 		pthread_mutex_init(data[i]->fork_r, NULL);
 		param_to_philo(data[i]->philo, i);
