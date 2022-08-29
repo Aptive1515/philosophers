@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 13:10:26 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/08/29 15:24:58 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:19:17 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,18 @@ void	philo_dead(t_data *(*dt), int nb_philo, int time_to_dead)
 
 	i = 0;
 	j = -1;
+	int time;
 	usleep((time_to_dead) * 1000);
 	while (dt[i])
 	{
+		time = gettime();
 		pthread_mutex_lock(dt[i]->mutex_dead);
-		if ((gettime() - dt[i]->philo->last_meal) > dt[i]->philo->time_to_die)
+		if ((time - dt[i]->philo->last_meal) > dt[i]->philo->time_to_die)
 		{
 			if (dt[i]->philo->nb_philo_must_eat > 0)
 				if (philo_all_eat(dt, nb_philo))
 					ft_exit(dt, i);
-			printf("%i %i died", gettime() - dt[i]->philo->time_begin,
+			printf("%i %i died\n", time - dt[i]->philo->time_begin,
 				dt[i]->philo->nb);
 			while (dt[++j])
 				dt[j]->dead_philo = 1;
@@ -83,6 +85,9 @@ void	philo_dead(t_data *(*dt), int nb_philo, int time_to_dead)
 		pthread_mutex_unlock(dt[i]->mutex_dead);
 		i++;
 		if (nb_philo == i)
+		{
+			usleep(100);
 			i = 0;
+		}
 	}
 }

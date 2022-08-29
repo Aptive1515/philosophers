@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:11:29 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/29 15:18:36 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:38:19 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int	main(int argc, char **argv)
 	}
 	pthread_mutex_unlock(data[0]->to_print);
 	philo_dead(data, ft_atoi(argv[1]), ft_atoi(argv[2]));
+	// while(1);
 	return (0);
 }
