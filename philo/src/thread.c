@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:02:51 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/29 16:56:11 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:23:05 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,8 @@ void	eating_odd_even(t_data *data)
 	}
 	eating(data->philo, data);
 	drop_fork(data);
+	if (data->philo->nb_philo_must_eat > 0
+		&& data->philo->have_meal >= data->philo->nb_philo_must_eat)
+		return ;
 	sleeping(data->philo, data);
 }

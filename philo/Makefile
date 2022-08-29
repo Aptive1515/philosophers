@@ -6,7 +6,7 @@
 #    By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/08/29 15:12:03 by tdelauna         ###   ########.fr        #
+#    Updated: 2022/08/29 19:42:05 by tdelauna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=thread -g3
+CFLAGS	= -Wall -Wextra -Werror
+#-fsanitize=thread -g3
 #-D_REENTRANT
 #-fsanitize=address
 
@@ -60,4 +61,5 @@ fclean :clean
 	rm -rf $(NAME)
 
 
-re : fclean all
+re : fclean
+	make all
