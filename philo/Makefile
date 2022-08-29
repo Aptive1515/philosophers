@@ -6,7 +6,7 @@
 #    By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/28 18:02:37 by aptive            #+#    #+#              #
-#    Updated: 2022/08/27 17:19:32 by tdelauna         ###   ########.fr        #
+#    Updated: 2022/08/29 15:12:03 by tdelauna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,24 +24,22 @@ SRC		=	main.c \
 			time.c \
 			philo_utils.c\
 			action.c\
+			ft_utils.c\
+			ft_utils_2.c\
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
-#-fsanitize=thread -g3
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=thread -g3
 #-D_REENTRANT
 #-fsanitize=address
 
 # ft library
-FT		= ./libft/
-FT_LIB	= $(addprefix $(FT),libft.a)
-FT_INC	= -I ./libft
-FT_LNK	= -L ./libft -l ft -l pthread
 
 
-all :	obj $(FT_LIB) $(NAME)
+
+all :	obj $(NAME)
 
 obj :
 	mkdir -p $(OBJDIR)
@@ -49,20 +47,17 @@ obj :
 $(OBJDIR)/%.o:$(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(FT_INC) -I $(INCDIR) -o $@ -c $<
 
-$(FT_LIB):
-	@make -C $(FT)
-
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(FT_LNK) -lm -o $(NAME) -lpthread
+	$(CC) $(CFLAGS) $(OBJ) -lm -o $(NAME) -lpthread
 
 clean :
 	rm -rf $(OBJDIR)
 
 libclean:	clean
-			$(MAKE) clean -C ./libft
+
 
 fclean :clean
 	rm -rf $(NAME)
-	make -C $(FT) fclean
+
 
 re : fclean all

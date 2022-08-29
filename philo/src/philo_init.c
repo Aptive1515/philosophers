@@ -6,33 +6,11 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:09:32 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/27 16:27:36 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:15:08 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-void	ft_exit_free(t_data *(*data))
-{
-	int	i;
-
-	i = -1;
-	while (data && data[++i])
-	{
-		if (data[i]->mutex_dead)
-			free(data[i]->mutex_dead);
-		if (data[i]->to_print)
-			free(data[i]->to_print);
-		if (data[i]->fork_r)
-			free(data[i]->fork_r);
-		if (data[i]->philo)
-			free(data[i]->philo);
-		free(data[i]);
-
-	}
-	if (data)
-		free(data);
-}
 
 t_data	**philo_init(t_data *(*data), char **argv)
 {

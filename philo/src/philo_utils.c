@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 13:10:26 by tdelauna          #+#    #+#             */
-/*   Updated: 2022/08/27 16:26:11 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:24:58 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	philo_dead(t_data *(*dt), int nb_philo, int time_to_dead)
 {
 	int	i;
 	int	j;
-	int	time;
 
 	i = 0;
 	j = -1;
@@ -70,13 +69,13 @@ void	philo_dead(t_data *(*dt), int nb_philo, int time_to_dead)
 	while (dt[i])
 	{
 		pthread_mutex_lock(dt[i]->mutex_dead);
-		time = gettime();
-		if ((time - dt[i]->philo->last_meal) > dt[i]->philo->time_to_die)
+		if ((gettime() - dt[i]->philo->last_meal) > dt[i]->philo->time_to_die)
 		{
 			if (dt[i]->philo->nb_philo_must_eat > 0)
 				if (philo_all_eat(dt, nb_philo))
 					ft_exit(dt, i);
-			printf("%i %i died", gettime() - dt[i]->philo->time_begin, dt[i]->philo->nb);
+			printf("%i %i died", gettime() - dt[i]->philo->time_begin,
+				dt[i]->philo->nb);
 			while (dt[++j])
 				dt[j]->dead_philo = 1;
 			ft_exit(dt, i);

@@ -6,7 +6,7 @@
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 16:58:06 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/27 17:36:02 by tdelauna         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:15:11 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,43 @@ int	gettime(void)
 
 void	msg(int time, int philo_nb, char *str)
 {
-	ft_putnbr_fd((int)time, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putnbr_fd(philo_nb, 1);
-	ft_putchar_fd(' ', 1);
-	ft_putstr_fd(str, 1);
-	ft_putchar_fd('\n', 1);
+	char	*tmp;
+	char	*tmp_2;
+
+	tmp = ft_itoa(time);
+	tmp_2 = ft_strjoin_gnl(tmp, " ");
+	tmp = ft_itoa(philo_nb);
+	tmp_2 = ft_strjoin_gnl(tmp_2, tmp);
+	free(tmp);
+	tmp_2 = ft_strjoin_gnl(tmp_2, " ");
+	tmp_2 = ft_strjoin_gnl(tmp_2, str);
+	tmp_2 = ft_strjoin_gnl(tmp_2, "\n");
+	ft_putstr_fd(tmp_2, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (s)
+		write(fd, s, ft_strlen(s));
+}
+
+void	ft_exit_free(t_data *(*data))
+{
+	int	i;
+
+	i = -1;
+	while (data && data[++i])
+	{
+		if (data[i]->mutex_dead)
+			free(data[i]->mutex_dead);
+		if (data[i]->to_print)
+			free(data[i]->to_print);
+		if (data[i]->fork_r)
+			free(data[i]->fork_r);
+		if (data[i]->philo)
+			free(data[i]->philo);
+		free(data[i]);
+	}
+	if (data)
+		free(data);
 }

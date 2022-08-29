@@ -1,18 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_utils_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 11:16:50 by tdelauna          #+#    #+#             */
-/*   Updated: 2021/11/29 13:58:30 by tdelauna         ###   ########.fr       */
+/*   Created: 2022/08/29 15:09:57 by tdelauna          #+#    #+#             */
+/*   Updated: 2022/08/29 15:14:00 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/philosophers.h"
 
-static int	ft_itoa_size(int n)
+int	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	*ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*a;
+
+	a = (char *)s;
+	i = 0;
+	while (i < n)
+		a[i++] = '\0';
+	return (s);
+}
+
+void	*ft_calloc(size_t elementCount, size_t elementSize)
+{
+	void	*ptr;
+
+	ptr = malloc(elementCount * elementSize);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, elementCount * elementSize);
+	return (ptr);
+}
+
+int	ft_itoa_size(int n)
 {
 	int	size;
 
@@ -50,7 +83,7 @@ char	*ft_itoa(int n)
 	if (n < 0)
 		tmp = -n;
 	i = 1;
-	str = ft_calloc(sizeof(char), (size + 1));
+	str = malloc(sizeof(char) * (size + 1));
 	if (!str)
 		return (NULL);
 	if (tmp == 0)

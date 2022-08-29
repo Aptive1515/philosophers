@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aptive <aptive@student.42.fr>              +#+  +:+       +#+        */
+/*   By: tdelauna <tdelauna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:12:11 by aptive            #+#    #+#             */
-/*   Updated: 2022/08/23 19:00:04 by aptive           ###   ########.fr       */
+/*   Updated: 2022/08/29 15:15:33 by tdelauna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
-# include "../libft/libft.h"
 # include <stdio.h>
 
 typedef struct s_philosophers
@@ -76,11 +75,30 @@ void	eating_odd_even(t_data *data);
 TIME.C---------------------------------------------------------------------------
 */
 int		gettime(void);
+void	msg(int time, int philo_nb, char *str);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_exit_free(t_data *(*data));
+
 /*
 PHILO_UTILS.C--------------------------------------------------------------------
 */
 void	free_all(t_data *(*data));
 void	philo_dead(t_data *(*data), int nb_philo, int time_to_dead);
 void	died(t_philo *philo, t_data *data);
+/*
+UTILS.C--------------------------------------------------------------------------
+*/
+int		ft_isdigit(int c);
+int		ft_atoi(const char *nptr);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+
+/*
+UTILS_2.C------------------------------------------------------------------------
+*/
+int		ft_strlen(const char *str);
+void	*ft_bzero(void *s, size_t n);
+void	*ft_calloc(size_t elementCount, size_t elementSize);
+int		ft_itoa_size(int n);
+char	*ft_itoa(int n);
 
 #endif
